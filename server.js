@@ -3,12 +3,14 @@ import fs from 'fs';
 
 const PORT = 5000;
 
-const server = http.createServer((req, res)=>{
+const server = http.createServer((req, res) => {
+    
     if(req.url == '/'){
         
         console.log('ended..')    
         return res.end();        
     }
+
     console.log('here', req.url)
     // download file - bad way
     // const file = fs.readFileSync('sample.txt');
@@ -20,6 +22,7 @@ const server = http.createServer((req, res)=>{
         // readableStreams -> writeableStreams   (we create pipe's here)
         readableStream.pipe(res);
     }
+    
     // for mp4 - good way
     if(req.url == '/video'){
         const readableStream = fs.createReadStream('sample.mp4');
@@ -48,7 +51,7 @@ const server = http.createServer((req, res)=>{
     }
 
     // Stream Processing || video processing || audio processing
-    
+
 
 });
 
