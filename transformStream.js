@@ -20,23 +20,37 @@ const server = http.createServer((req, res) => {
 
     
     const sampleReadStream = fs.createReadStream('sample.txt');
-    const outputWriteStream = fs.createWriteStream('output.txt', sampleReadStream);
+    const outputWriteStream = fs.createWriteStream('output.txt');
 
+    // pipeline(sampleFileStream,
+    //     replaceWordProcessing,
+    //     uppercaseWordProcessing,
+    //     outputWritableStream,
+    //     (err) => {
+    //         if (err) {
+    //             console.log('Error handling here...', err);
+    //         }
+    //     }
+    //     )
 
     sampleReadStream.on('data', (chunk) => {
-        const upperCaseSample = chunk.toString().toUpperCase();
-        console.log(upperCaseSample);
+        // const regex = '/imagery/gi';
+        const finalString = chunk.toString().replaceAll(/imagery/gi, 'abcdefg');
+        
         
         // replace `authorship` to `**********` in sample.txt
-        const finalString = upperCaseSample.replaceAll('/authorship/gi', 'xxxx**@$**xxx') // g-> global, i->caseInSensetive
-
+        // Real time useage: Bank email where account details is hide(replace by xxxxxx)
+        
+        
+        // g-> global, i->caseInSensetive
+        console.log(finalString);
         outputWriteStream.write(finalString);
-        return res.end();
+        
         
     })
 
 }
-
+res.end();
 });
 
 server.listen(PORT, () => {
