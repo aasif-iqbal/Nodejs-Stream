@@ -1,7 +1,8 @@
 import { Readable, Writable } from 'stream';
 
 const readableStream = new Readable({
-    highWaterMark: 2, // 2 bytes
+    // objectMode:true,
+    highWaterMark: 2, // 2 bytes & for ObjectMode - 2 objects
     read(){}
 });
 
